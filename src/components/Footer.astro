@@ -1,36 +1,46 @@
 ---
+import type { Content } from "../i18n";
+
+interface Props {
+  content: Content;
+}
+
+const { content } = Astro.props;
+const f = content.footer;
+const n = content.nav;
 ---
+
 <footer class="ft">
   <div class="ft-top">
     <div>
       <div class="brand"><span class="mark">ORLEN</span><span>Energy Trading</span></div>
-      <p>A young, growing energy trading company with the depth of one of Europe's largest energy groups behind it.</p>
+      <p>{f.tagline}</p>
     </div>
     <div>
-      <h4>Company</h4>
+      <h4>{f.company}</h4>
       <ul>
-        <li><a href="#group">About us</a></li>
-        <li><a href="#group">The group</a></li>
-        <li><a href="#news">Newsroom</a></li>
-        <li><a href="#trading">Careers</a></li>
+        <li><a href="#group">{f.aboutUs}</a></li>
+        <li><a href="#group">{f.theGroup}</a></li>
+        <li><a href="#news">{f.newsroom}</a></li>
+        <li><a href="#trading">{f.careers}</a></li>
       </ul>
     </div>
     <div>
-      <h4>What we do</h4>
+      <h4>{f.whatWeDo}</h4>
       <ul>
-        <li><a href="#trading">Trading</a></li>
-        <li><a href="#trading">Supply</a></li>
-        <li><a href="#trading">Services</a></li>
-        <li><a href="#contact">Get in touch</a></li>
+        <li><a href="#trading">{n.trading}</a></li>
+        <li><a href="#trading">{n.supply}</a></li>
+        <li><a href="#trading">{n.services}</a></li>
+        <li><a href="#contact">{n.cta}</a></li>
       </ul>
     </div>
     <div>
-      <h4>Offices</h4>
-      <address>Munich · Head office<br />Warsaw<br />London</address>
+      <h4>{f.offices}</h4>
+      <address>{f.munichHQ}<br />{f.warsaw}<br />{f.london}</address>
     </div>
   </div>
   <div class="ft-bottom">
-    <span>© 2026 ORLEN Energy Trading GmbH — layout concept.</span>
-    <span class="disclaimer">Independent design concept by Miloš Savković. Not affiliated with, authorised by, or endorsed by ORLEN. Brand name, addresses and market figures shown for illustration only.</span>
+    <span>{f.rights}</span>
+    <span class="disclaimer">{f.disclaimer}</span>
   </div>
 </footer>

@@ -1,18 +1,48 @@
 ---
+import type { Content, Lang } from "../i18n";
+import { LANGS, LANG_HREF, LANG_LABEL } from "../i18n";
+
+interface Props {
+  content: Content;
+  lang: Lang;
+}
+
+const { content, lang } = Astro.props;
+const t = content.nav;
 ---
+
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="#top"><span class="mark">ORLEN</span><span>Energy&nbsp;Trading</span></a>
+    <a class="brand" href={LANG_HREF[lang] + "#top"}>
+      <span class="mark">ORLEN</span><span>Energy&nbsp;Trading</span>
+    </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#trading">Trading</a>
-      <a href="#trading">Supply</a>
-      <a href="#trading">Services</a>
-      <a href="#group">Group</a>
-      <a href="#news">News</a>
+      <a href="#trading">{t.trading}</a>
+      <a href="#trading">{t.supply}</a>
+      <a href="#trading">{t.services}</a>
+      <a href="#group">{t.group}</a>
+      <a href="#news">{t.news}</a>
     </nav>
     <div class="nav-right">
-      <span class="lang"><b>EN</b><span>·</span><span>DE</span></span>
-      <a href="#contact" class="btn btn-primary">Get in touch <span class="arrow" aria-hidden="true">→</span></a>
+      <nav class="lang" aria-label={content.langSwitcher.aria}>
+        {
+          LANGS.map((l, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">·</span>}
+              {l === lang ? (
+                <b>{LANG_LABEL[l]}</b>
+              ) : (
+                <a href={LANG_HREF[l]} hreflang={l} lang={l}>
+                  {LANG_LABEL[l]}
+                </a>
+              )}
+            </>
+          ))
+        }
+      </nav>
+      <a href="#contact" class="btn btn-primary">
+        {t.cta} <span class="arrow" aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </header>

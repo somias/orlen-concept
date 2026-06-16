@@ -1,9 +1,35 @@
 ---
+import type { Content } from "../i18n";
+
+interface Props {
+  content: Content["snapshot"];
+}
+
+const { content } = Astro.props;
+
+const ROWS = [
+  { base: 34.2, prec: 2, delta: "▲ 0.6%", deltaClass: "up", d: "0.6" },
+  { base: 82.5, prec: 2, delta: "▼ 0.4%", deltaClass: "down", d: "0.4" },
+  { base: 71.8, prec: 2, delta: "▲ 1.2%", deltaClass: "up", d: "1.2" },
+  { base: 79.4, prec: 2, delta: "▲ 0.3%", deltaClass: "up", d: "0.3" },
+];
 ---
-<div class="snapshot" aria-label="Indicative market snapshot, illustrative figures">
-  <div class="snap-head"><span>Market snapshot</span><span>indicative</span></div>
-  <div class="snap-row"><span class="name">Natural gas · TTF €/MWh</span><span class="val" data-base="34.2" data-prec="2">34.20</span><span class="delta up" data-d="0.6">▲ 0.6%</span></div>
-  <div class="snap-row"><span class="name">Power · DE base €/MWh</span><span class="val" data-base="82.5" data-prec="2">82.50</span><span class="delta down" data-d="0.4">▼ 0.4%</span></div>
-  <div class="snap-row"><span class="name">Carbon · EUA €/t</span><span class="val" data-base="71.8" data-prec="2">71.80</span><span class="delta up" data-d="1.2">▲ 1.2%</span></div>
-  <div class="snap-row"><span class="name">Brent · ICE $/bbl</span><span class="val" data-base="79.4" data-prec="2">79.40</span><span class="delta up" data-d="0.3">▲ 0.3%</span></div>
+
+<div class="snapshot" aria-label={`${content.title}, ${content.indicative}`}>
+  <div class="snap-head">
+    <span>{content.title}</span><span>{content.indicative}</span>
+  </div>
+  {
+    ROWS.map((r, i) => (
+      <div class="snap-row">
+        <span class="name">{content.rows[i].name}</span>
+        <span class="val" data-base={r.base} data-prec={r.prec}>
+          {r.base.toFixed(r.prec)}
+        </span>
+        <span class={`delta ${r.deltaClass}`} data-d={r.d}>
+          {r.delta}
+        </span>
+      </div>
+    ))
+  }
 </div>

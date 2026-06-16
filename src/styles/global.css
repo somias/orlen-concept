@@ -63,8 +63,10 @@ header.nav.scrolled{border-color:var(--line);background:rgba(244,243,239,.92)}
 .nav-links a:hover::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:18px}
 .lang{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:var(--slate);
-  display:flex;gap:8px}
+  display:flex;gap:8px;align-items:center}
 .lang b{color:var(--ink)}
+.lang a{color:var(--slate);transition:color .18s ease}
+.lang a:hover{color:var(--ink)}
 @media(max-width:880px){.nav-links{display:none}.lang{display:none}}
 
 /* hero */

@@ -1,6 +1,14 @@
 ---
+import type { Content } from "../i18n";
+
+interface Props {
+  ariaLabel: string;
+}
+
+const { ariaLabel } = Astro.props;
 ---
-<svg class="flow" viewBox="0 0 560 360" role="img" aria-label="A living energy network: packets of energy flow between trading hubs in London, Munich and Warsaw, converging on the Munich head office.">
+
+<svg class="flow" viewBox="0 0 560 360" role="img" aria-label={ariaLabel}>
   <defs>
     <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
       <circle class="grid-dot" cx="1.4" cy="1.4" r="1.4" />

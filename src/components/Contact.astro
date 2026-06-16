@@ -1,18 +1,40 @@
 ---
+import type { Content } from "../i18n";
+
+interface Props {
+  content: Content["contact"];
+}
+
+const { content } = Astro.props;
 ---
+
 <section class="cta" id="contact">
   <div class="wrap cta-inner">
     <div class="reveal">
-      <span class="eyebrow" style="color:var(--ember-light)">Let's talk</span>
-      <h2>Bring us your energy challenge.</h2>
-      <p>Whether you trade, supply a city, or run an industrial site, our desk is ready to find the right structure for you.</p>
-      <a href="mailto:info@orlengas.com" class="btn btn-primary" style="margin-top:26px">Start a conversation <span class="arrow" aria-hidden="true">→</span></a>
+      <span class="eyebrow" style="color:var(--ember-light)">{content.eyebrow}</span>
+      <h2>{content.h2}</h2>
+      <p>{content.body}</p>
+      <a href="mailto:info@orlengas.com" class="btn btn-primary" style="margin-top:26px">
+        {content.cta} <span class="arrow" aria-hidden="true">→</span>
+      </a>
     </div>
     <div class="contact reveal">
-      <div><span class="k">Munich</span><span>Erika-Mann-Str. 23, 80636 München, Germany</span></div>
-      <div><span class="k">London</span><span>3rd Floor, 20 Greycoat Place, London SW1P 1SB, UK</span></div>
-      <a href="mailto:info@orlengas.com"><span class="k">Email</span><span>info@orlengas.com</span></a>
-      <a href="tel:+498915925900"><span class="k">Phone</span><span>+49 89 159259-0</span></a>
+      <div>
+        <span class="k">{content.munichK}</span>
+        <span>Erika-Mann-Str. 23, 80636 München, Germany</span>
+      </div>
+      <div>
+        <span class="k">{content.londonK}</span>
+        <span>3rd Floor, 20 Greycoat Place, London SW1P 1SB, UK</span>
+      </div>
+      <a href="mailto:info@orlengas.com">
+        <span class="k">{content.emailK}</span>
+        <span>info@orlengas.com</span>
+      </a>
+      <a href="tel:+498915925900">
+        <span class="k">{content.phoneK}</span>
+        <span>+49 89 159259-0</span>
+      </a>
     </div>
   </div>
 </section>

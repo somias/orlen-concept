@@ -1,27 +1,49 @@
 ---
 import FlowNetwork from "./FlowNetwork.astro";
 import MarketSnapshot from "./MarketSnapshot.astro";
+import type { Content } from "../i18n";
+
+interface Props {
+  content: Content;
+}
+
+const { content } = Astro.props;
+const h = content.hero;
 ---
+
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow">Wholesale energy · Munich · Warsaw · London</span>
-      <h1>Energy, traded with precision <em>across Europe.</em></h1>
-      <p class="lead">We move natural gas, LNG, power, oil and environmental products between Europe's markets — reading conditions fast, keeping price risk low, and standing behind every deal with the scale of the ORLEN Group.</p>
+      <span class="eyebrow">{h.eyebrow}</span>
+      <h1>
+        {h.h1Lead} <em>{h.h1Em}</em>
+      </h1>
+      <p class="lead">{h.lead}</p>
       <div class="hero-cta">
-        <a href="#contact" class="btn btn-primary">Partner with us <span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#trading" class="btn btn-ghost on-dark">What we trade</a>
+        <a href="#contact" class="btn btn-primary">
+          {h.primaryCta} <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#trading" class="btn btn-ghost on-dark">{h.secondaryCta}</a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="n">5</div><div class="l">commodity markets</div></div>
-        <div class="hero-stat"><div class="n">3</div><div class="l">European trading hubs</div></div>
-        <div class="hero-stat"><div class="n">130<span style="color:var(--ember-light)">+</span></div><div class="l">years of Polish energy heritage</div></div>
+        <div class="hero-stat">
+          <div class="n">5</div>
+          <div class="l">{h.stats.commodities}</div>
+        </div>
+        <div class="hero-stat">
+          <div class="n">3</div>
+          <div class="l">{h.stats.hubs}</div>
+        </div>
+        <div class="hero-stat">
+          <div class="n">130<span style="color:var(--ember-light)">+</span></div>
+          <div class="l">{h.stats.heritage}</div>
+        </div>
       </div>
     </div>
 
     <div class="visual reveal">
-      <FlowNetwork />
-      <MarketSnapshot />
+      <FlowNetwork ariaLabel={h.flowAria} />
+      <MarketSnapshot content={content.snapshot} />
     </div>
   </div>
 </section>
