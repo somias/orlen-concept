@@ -1,13 +1,28 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Stats from "../components/Stats.astro";
+import Pillars from "../components/Pillars.astro";
+import News from "../components/News.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>ORLEN Energy Trading — concept</title>
-  </head>
-  <body>
-    <h1>ORLEN Energy Trading — concept</h1>
-  </body>
-</html>
+<Layout>
+  <Nav />
+  <main id="top">
+    <Hero />
+    <Services />
+    <Stats />
+    <Pillars />
+    <News />
+    <Contact />
+  </main>
+  <Footer />
+
+  <script>
+    import "../scripts/interactions.ts";
+  </script>
+</Layout>
