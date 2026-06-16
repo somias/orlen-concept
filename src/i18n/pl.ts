@@ -16,7 +16,7 @@ export const pl: Content = {
   },
   hero: {
     eyebrow: "Hurtowa energia · Monachium · Warszawa · Londyn",
-    h1Lead: "Energia, handlowana z precyzją",
+    h1Lead: "Obrót energią z precyzją",
     h1Em: "w całej Europie.",
     lead:
       "Przesyłamy gaz ziemny, LNG, energię elektryczną, ropę i produkty środowiskowe między rynkami Europy — szybko czytamy warunki, utrzymujemy niskie ryzyko cenowe i za każdą transakcją stoi skala Grupy ORLEN.",
@@ -54,12 +54,12 @@ export const pl: Content = {
     supply: {
       h3: "Dostawy",
       body:
-        "Energia dopasowana do potrzeb przedsiębiorstw komunalnych i odbiorców przemysłowych — od stabilnego pasma podstawowego po bilansowanie wygładzające szczyty.",
+        "Energia dopasowana do potrzeb przedsiębiorstw komunalnych i odbiorców przemysłowych — od stabilnego pasma podstawowego po bilansowanie pokrywające szczyty zapotrzebowania.",
     },
     services: {
       h3: "Usługi",
       body:
-        "LNG jako paliwo, zarządzanie grupą bilansującą i dostęp do rynku — operacyjny kręgosłup dla partnerów potrzebujących pewnej ręki.",
+        "LNG jako paliwo, zarządzanie grupą bilansującą i dostęp do rynku — główny filar operacyjny dla partnerów potrzebujących pewnej ręki.",
     },
   },
   stats: {
@@ -119,7 +119,7 @@ export const pl: Content = {
   },
   contact: {
     eyebrow: "Porozmawiajmy",
-    h2: "Powiedzcie nam o swoim wyzwaniu energetycznym.",
+    h2: "Powierzcie nam swoje wyzwania energetyczne.",
     body:
       "Niezależnie od tego, czy handlujecie, zaopatrujecie miasto czy prowadzicie zakład przemysłowy — nasz desk znajdzie dla Was odpowiednią strukturę.",
     cta: "Rozpocznij rozmowę",

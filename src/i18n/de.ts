@@ -54,7 +54,7 @@ export const de: Content = {
     supply: {
       h3: "Belieferung",
       body:
-        "Maßgeschneiderte Energie für Stadtwerke und Industriekunden — von stabiler Grundlast bis zur Ausregelung, die Spitzen abfedert.",
+        "Maßgeschneiderte Energie für Stadtwerke und Industriekunden — von stabiler Grundlast bis zum Spitzenausgleich.",
     },
     services: {
       h3: "Services",
@@ -119,7 +119,7 @@ export const de: Content = {
   },
   contact: {
     eyebrow: "Sprechen wir",
-    h2: "Bringen Sie uns Ihre Energieaufgabe.",
+    h2: "Kommen Sie mit Ihrer Energie-Herausforderung zu uns.",
     body:
       "Ob Sie handeln, eine Stadt versorgen oder einen Industriestandort betreiben — unser Desk findet die passende Struktur für Sie.",
     cta: "Gespräch beginnen",
