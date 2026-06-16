@@ -1,0 +1,74 @@
+---
+---
+<svg class="flow" viewBox="0 0 560 360" role="img" aria-label="A living energy network: packets of energy flow between trading hubs in London, Munich and Warsaw, converging on the Munich head office.">
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle class="grid-dot" cx="1.4" cy="1.4" r="1.4" />
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="560" height="360" fill="url(#dots)" opacity="0.45" />
+
+  <path class="conn conn-faint" id="lw" d="M110,120 C232,62 352,62 470,120" />
+  <path class="conn" id="lm" d="M110,120 C168,168 222,222 300,262" />
+  <path class="conn" id="mw" d="M300,262 C382,222 428,170 470,120" />
+
+  <path class="pulse" d="M110,120 C168,168 222,222 300,262" />
+  <path class="pulse d2" d="M300,262 C382,222 428,170 470,120" />
+  <path class="pulse d3" d="M110,120 C232,62 352,62 470,120" />
+
+  <g class="particle">
+    <circle class="p-halo" r="5" />
+    <circle class="p-core" r="2.4" />
+    <animateMotion dur="3.6s" repeatCount="indefinite" begin="0s"><mpath href="#lm" /></animateMotion>
+  </g>
+  <g class="particle">
+    <circle class="p-halo" r="5" />
+    <circle class="p-core" r="2.4" />
+    <animateMotion dur="3.6s" repeatCount="indefinite" begin="-1.2s"><mpath href="#lm" /></animateMotion>
+  </g>
+  <g class="particle">
+    <circle class="p-halo" r="5" />
+    <circle class="p-core" r="2.4" />
+    <animateMotion dur="3.6s" repeatCount="indefinite" begin="-2.4s"><mpath href="#lm" /></animateMotion>
+  </g>
+
+  <g class="particle">
+    <circle class="p-halo" r="5" />
+    <circle class="p-core" r="2.4" />
+    <animateMotion dur="3.6s" repeatCount="indefinite" begin="-0.6s"><mpath href="#mw" /></animateMotion>
+  </g>
+  <g class="particle">
+    <circle class="p-halo" r="5" />
+    <circle class="p-core" r="2.4" />
+    <animateMotion dur="3.6s" repeatCount="indefinite" begin="-1.8s"><mpath href="#mw" /></animateMotion>
+  </g>
+  <g class="particle">
+    <circle class="p-halo" r="5" />
+    <circle class="p-core" r="2.4" />
+    <animateMotion dur="3.6s" repeatCount="indefinite" begin="-3.0s"><mpath href="#mw" /></animateMotion>
+  </g>
+
+  <g class="particle">
+    <circle class="p-halo" r="4" />
+    <circle class="p-core" r="2" />
+    <animateMotion dur="4.6s" repeatCount="indefinite" begin="-0.9s"><mpath href="#lw" /></animateMotion>
+  </g>
+  <g class="particle">
+    <circle class="p-halo" r="4" />
+    <circle class="p-core" r="2" />
+    <animateMotion dur="4.6s" repeatCount="indefinite" begin="-3.2s"><mpath href="#lw" /></animateMotion>
+  </g>
+
+  <circle class="node-pulse" cx="110" cy="120" r="7" />
+  <circle class="node" cx="110" cy="120" r="7" />
+  <text class="nlabel" x="110" y="102" text-anchor="middle">LONDON</text>
+
+  <circle class="node-pulse" cx="470" cy="120" r="7" />
+  <circle class="node" cx="470" cy="120" r="7" />
+  <text class="nlabel" x="470" y="102" text-anchor="middle">WARSAW</text>
+
+  <circle class="hq-ring" cx="300" cy="262" r="9" />
+  <circle class="hq-ring b" cx="300" cy="262" r="9" />
+  <circle class="node node-hq" cx="300" cy="262" r="9" />
+  <text class="nlabel hq" x="300" y="288" text-anchor="middle">MUNICH · HQ</text>
+</svg>
