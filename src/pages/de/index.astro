@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Hero from "../../components/Hero.astro";
+import Services from "../../components/Services.astro";
+import Stats from "../../components/Stats.astro";
+import Pillars from "../../components/Pillars.astro";
+import News from "../../components/News.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import { CONTENT } from "../../i18n";
+
+const lang = "de";
+const content = CONTENT[lang];
+---
+
+<Layout content={content} lang={lang}>
+  <Nav content={content} lang={lang} />
+  <main id="top">
+    <Hero content={content} />
+    <Services content={content.services} />
+    <Stats content={content.stats} />
+    <Pillars content={content.pillars} />
+    <News content={content.news} />
+    <Contact content={content.contact} />
+  </main>
+  <Footer content={content} />
+
+  <script>
+    import "../../scripts/interactions.ts";
+  </script>
+</Layout>
