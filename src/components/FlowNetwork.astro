@@ -1,6 +1,4 @@
 ---
-import type { Content } from "../i18n";
-
 interface Props {
   ariaLabel: string;
 }
@@ -8,75 +6,454 @@ interface Props {
 const { ariaLabel } = Astro.props;
 ---
 
-<svg class="flow" viewBox="0 0 560 360" role="img" aria-label={ariaLabel}>
+<svg class="flow" id="energy-svg" viewBox="0 0 560 360" role="img" aria-label={ariaLabel}>
   <defs>
     <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
       <circle class="grid-dot" cx="1.4" cy="1.4" r="1.4" />
     </pattern>
+
+    <!-- Neon Glow Filter -->
+    <filter id="glow-filter" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Strong Neon Glow Filter for active nodes -->
+    <filter id="glow-strong-filter" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur1"/>
+      <feGaussianBlur stdDeviation="2" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Radial Gradient for mouse hover illumination -->
+    <radialGradient id="cursor-glow" cx="0%" cy="0%" r="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="rgba(219, 79, 39, 0.22)" />
+      <stop offset="50%" stop-color="rgba(242, 145, 107, 0.05)" />
+      <stop offset="100%" stop-color="rgba(255, 255, 255, 0)" />
+    </radialGradient>
   </defs>
+
+  <!-- Background Dots Grid -->
   <rect x="0" y="0" width="560" height="360" fill="url(#dots)" opacity="0.45" />
 
-  <path class="conn conn-faint" id="lw" d="M110,120 C232,62 352,62 470,120" />
-  <path class="conn" id="lm" d="M110,120 C168,168 222,222 300,262" />
-  <path class="conn" id="mw" d="M300,262 C382,222 428,170 470,120" />
+  <!-- Mouse hover lighting follower circle -->
+  <circle id="cursor-follower" cx="-999" cy="-999" r="120" fill="url(#cursor-glow)" pointer-events="none" style="mix-blend-mode: screen; opacity: 0; transition: opacity 0.4s ease;" />
 
-  <path class="pulse" d="M110,120 C168,168 222,222 300,262" />
-  <path class="pulse d2" d="M300,262 C382,222 428,170 470,120" />
-  <path class="pulse d3" d="M110,120 C232,62 352,62 470,120" />
+  <!-- Glowing waveforms representing market frequency activity -->
+  <path class="live-wave wave-a" d="M30,335 C110,325 170,345 250,335 C330,325 390,345 470,335 C500,331 530,335 530,335" />
+  <path class="live-wave wave-b" d="M30,336 C90,346 150,326 220,336 C290,346 360,326 430,336 C490,346 530,336 530,336" />
 
-  <g class="particle">
+  <!-- Main Trading Hub Connections -->
+  <path class="conn conn-faint" id="lw" data-hubs="london,warsaw" d="M110,120 C232,62 352,62 470,120" />
+  <path class="conn" id="lm" data-hubs="london,munich" d="M110,120 C168,168 222,222 300,262" />
+  <path class="conn" id="mw" data-hubs="munich,warsaw" d="M300,262 C382,222 428,170 470,120" />
+
+  <!-- Pulse overlays -->
+  <path class="pulse" data-hubs="london,munich" d="M110,120 C168,168 222,222 300,262" />
+  <path class="pulse d2" data-hubs="munich,warsaw" d="M300,262 C382,222 428,170 470,120" />
+  <path class="pulse d3" data-hubs="london,warsaw" d="M110,120 C232,62 352,62 470,120" />
+
+  <!-- Particles: London to Munich -->
+  <g class="particle" data-path="lm">
     <circle class="p-halo" r="5" />
     <circle class="p-core" r="2.4" />
     <animateMotion dur="3.6s" repeatCount="indefinite" begin="0s"><mpath href="#lm" /></animateMotion>
   </g>
-  <g class="particle">
+  <g class="particle" data-path="lm">
     <circle class="p-halo" r="5" />
     <circle class="p-core" r="2.4" />
     <animateMotion dur="3.6s" repeatCount="indefinite" begin="-1.2s"><mpath href="#lm" /></animateMotion>
   </g>
-  <g class="particle">
+  <g class="particle" data-path="lm">
     <circle class="p-halo" r="5" />
     <circle class="p-core" r="2.4" />
     <animateMotion dur="3.6s" repeatCount="indefinite" begin="-2.4s"><mpath href="#lm" /></animateMotion>
   </g>
 
-  <g class="particle">
+  <!-- Particles: Munich to Warsaw -->
+  <g class="particle" data-path="mw">
     <circle class="p-halo" r="5" />
     <circle class="p-core" r="2.4" />
     <animateMotion dur="3.6s" repeatCount="indefinite" begin="-0.6s"><mpath href="#mw" /></animateMotion>
   </g>
-  <g class="particle">
+  <g class="particle" data-path="mw">
     <circle class="p-halo" r="5" />
     <circle class="p-core" r="2.4" />
     <animateMotion dur="3.6s" repeatCount="indefinite" begin="-1.8s"><mpath href="#mw" /></animateMotion>
   </g>
-  <g class="particle">
+  <g class="particle" data-path="mw">
     <circle class="p-halo" r="5" />
     <circle class="p-core" r="2.4" />
     <animateMotion dur="3.6s" repeatCount="indefinite" begin="-3.0s"><mpath href="#mw" /></animateMotion>
   </g>
 
-  <g class="particle">
+  <!-- Particles: London to Warsaw -->
+  <g class="particle" data-path="lw">
     <circle class="p-halo" r="4" />
     <circle class="p-core" r="2" />
     <animateMotion dur="4.6s" repeatCount="indefinite" begin="-0.9s"><mpath href="#lw" /></animateMotion>
   </g>
-  <g class="particle">
+  <g class="particle" data-path="lw">
     <circle class="p-halo" r="4" />
     <circle class="p-core" r="2" />
     <animateMotion dur="4.6s" repeatCount="indefinite" begin="-3.2s"><mpath href="#lw" /></animateMotion>
   </g>
 
-  <circle class="node-pulse" cx="110" cy="120" r="7" />
-  <circle class="node" cx="110" cy="120" r="7" />
-  <text class="nlabel" x="110" y="102" text-anchor="middle">LONDON</text>
+  <!-- Central Dashboard Screen (in negative space) -->
+  <g class="db-screen" id="central-db" transform="translate(200, 132)" style="cursor: default;">
+    <!-- Screen Glass Frame -->
+    <rect class="db-bg" width="160" height="74" rx="8" />
+    
+    <!-- Scanning line overlay -->
+    <line class="db-scan" x1="0" y1="0" x2="160" y2="0" />
+    
+    <!-- Content elements -->
+    <text class="db-title" x="12" y="20">GRID STATUS</text>
+    <text class="db-status" id="db-status" x="148" y="20" text-anchor="end">ONLINE</text>
+    
+    <!-- Stats lines -->
+    <text class="db-label" x="12" y="42">ACTIVE HUB</text>
+    <text class="db-value" id="db-active-hub" x="148" y="42" text-anchor="end">ALL HUBS</text>
+    
+    <text class="db-label" x="12" y="60">NET FLOW</text>
+    <text class="db-value highlight" id="db-flow-val" x="148" y="60" text-anchor="end">188.5 GWh/d</text>
+  </g>
 
-  <circle class="node-pulse" cx="470" cy="120" r="7" />
-  <circle class="node" cx="470" cy="120" r="7" />
-  <text class="nlabel" x="470" y="102" text-anchor="middle">WARSAW</text>
+  <!-- Primary Trading Hubs -->
+  <!-- LONDON -->
+  <g class="node-group" id="node-london" data-hub="london">
+    <circle class="hover-target" cx="110" cy="120" r="26" fill="transparent" />
+    <circle class="node-pulse" cx="110" cy="120" r="7" />
+    <circle class="node" cx="110" cy="120" r="7" />
+    <text class="nlabel" x="110" y="100" text-anchor="middle">LONDON</text>
+  </g>
 
-  <circle class="hq-ring" cx="300" cy="262" r="9" />
-  <circle class="hq-ring b" cx="300" cy="262" r="9" />
-  <circle class="node node-hq" cx="300" cy="262" r="9" />
-  <text class="nlabel hq" x="300" y="288" text-anchor="middle">MUNICH · HQ</text>
+  <!-- WARSAW -->
+  <g class="node-group" id="node-warsaw" data-hub="warsaw">
+    <circle class="hover-target" cx="470" cy="120" r="26" fill="transparent" />
+    <circle class="node-pulse" cx="470" cy="120" r="7" />
+    <circle class="node" cx="470" cy="120" r="7" />
+    <text class="nlabel" x="470" y="100" text-anchor="middle">WARSAW</text>
+  </g>
+
+  <!-- MUNICH (HQ) -->
+  <g class="node-group" id="node-munich" data-hub="munich">
+    <circle class="hover-target" cx="300" cy="262" r="26" fill="transparent" />
+    <circle class="hq-ring" cx="300" cy="262" r="9" />
+    <circle class="hq-ring b" cx="300" cy="262" r="9" />
+    <circle class="node node-hq" cx="300" cy="262" r="9" />
+    <text class="nlabel hq" x="300" y="288" text-anchor="middle">MUNICH · HQ</text>
+  </g>
 </svg>
+
+<style>
+  /* Local Scoped Component Styles */
+  .flow {
+    user-select: none;
+    overflow: visible;
+  }
+  
+  /* Waveform styles */
+  .live-wave {
+    fill: none;
+    stroke-width: 1px;
+    opacity: 0.12;
+    transition: opacity 0.3s, stroke-width 0.3s;
+  }
+  .live-wave.wave-a {
+    stroke: var(--mint);
+    stroke-dasharray: 6 3;
+    animation: wave-slide-a 22s linear infinite;
+  }
+  .live-wave.wave-b {
+    stroke: var(--ember-light);
+    stroke-dasharray: 8 4;
+    animation: wave-slide-b 18s linear infinite;
+  }
+  .flow.has-active-hub .live-wave {
+    opacity: 0.3;
+    stroke-width: 1.2px;
+  }
+  @keyframes wave-slide-a {
+    from { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: 200; }
+  }
+  @keyframes wave-slide-b {
+    from { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: -180; }
+  }
+  
+  /* Node Transform Origins */
+  #node-london { transform-origin: 110px 120px; }
+  #node-warsaw { transform-origin: 470px 120px; }
+  #node-munich { transform-origin: 300px 262px; }
+
+  .node-group {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  }
+  .node-group .hover-target {
+    cursor: pointer;
+  }
+  .node-group:hover, .node-group.active {
+    transform: scale(1.18);
+  }
+
+  /* Central Screen styling */
+  .db-bg {
+    fill: rgba(7, 26, 27, 0.88);
+    stroke: rgba(242, 145, 107, 0.16);
+    stroke-width: 1px;
+    backdrop-filter: blur(8px);
+    transition: stroke 0.3s, fill 0.3s;
+  }
+  .flow.has-active-hub .db-bg {
+    stroke: rgba(242, 145, 107, 0.3);
+    fill: rgba(7, 26, 27, 0.94);
+  }
+  .db-scan {
+    stroke: rgba(103, 194, 163, 0.12);
+    stroke-width: 1px;
+    animation: scan 5s linear infinite;
+  }
+  @keyframes scan {
+    0% { y1: 2; y2: 2; opacity: 0; }
+    5% { opacity: 0.8; }
+    95% { opacity: 0.8; }
+    100% { y1: 72; y2: 72; opacity: 0; }
+  }
+  .db-title {
+    font-family: var(--font-mono);
+    font-size: 7px;
+    letter-spacing: 0.12em;
+    fill: #728482;
+    font-weight: 500;
+  }
+  .db-status {
+    font-family: var(--font-mono);
+    font-size: 7px;
+    letter-spacing: 0.08em;
+    fill: var(--mint);
+    font-weight: 600;
+    transition: fill 0.3s;
+  }
+  .db-label {
+    font-family: var(--font-body);
+    font-size: 8.5px;
+    letter-spacing: 0.01em;
+    fill: #99A8A6;
+  }
+  .db-value {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    fill: #ffffff;
+    font-weight: 500;
+  }
+  .db-value.highlight {
+    fill: var(--ember-light);
+  }
+
+  /* Interaction highlights */
+  .conn {
+    transition: stroke 0.3s, stroke-width 0.3s, opacity 0.3s;
+  }
+  .pulse {
+    transition: stroke 0.3s, stroke-width 0.3s, opacity 0.3s;
+  }
+  .particle {
+    transition: opacity 0.3s;
+  }
+
+  /* When a hub is active, dim everything else */
+  .flow.has-active-hub .conn:not(.active-path) {
+    opacity: 0.03;
+  }
+  .flow.has-active-hub .pulse:not(.active-path) {
+    opacity: 0.02;
+    animation-play-state: paused;
+  }
+  .flow.has-active-hub .particle:not(.active-particle) {
+    opacity: 0.05;
+  }
+  .flow.has-active-hub .node-group:not(.active) {
+    opacity: 0.25;
+  }
+
+  /* Active line glow filter */
+  .conn.active-path {
+    stroke: var(--ember-light);
+    stroke-width: 2.2px;
+    opacity: 0.95;
+    filter: url(#glow-filter);
+  }
+  .pulse.active-path {
+    stroke-width: 3px;
+    opacity: 0.8;
+    filter: url(#glow-filter);
+  }
+  .node-group.active .node {
+    stroke-width: 2.5px;
+    stroke: #ffffff;
+    filter: url(#glow-strong-filter);
+  }
+  .node-group.active .node-hq {
+    stroke-width: 1.5px;
+    stroke: #ffffff;
+    filter: url(#glow-strong-filter);
+  }
+  .node-group.active .nlabel {
+    fill: #ffffff;
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // Hub stats details
+  const HUB_DATA = {
+    default: {
+      status: "ONLINE",
+      statusColor: "var(--mint)",
+      hub: "ALL HUBS",
+      flow: "188.5 GWh/d"
+    },
+    london: {
+      status: "ACTIVE",
+      statusColor: "var(--ember-light)",
+      hub: "LONDON HUB",
+      flow: "113.6 GWh/d"
+    },
+    munich: {
+      status: "HQ ONLINE",
+      statusColor: "var(--mint)",
+      hub: "MUNICH HQ",
+      flow: "82.5 GWh/d"
+    },
+    warsaw: {
+      status: "ACTIVE",
+      statusColor: "var(--ember-light)",
+      hub: "WARSAW HUB",
+      flow: "71.8 GWh/d"
+    }
+  };
+
+  const svg = document.getElementById('energy-svg') as SVGSVGElement | null;
+  const follower = document.getElementById('cursor-follower') as SVGCircleElement | null;
+  const dbStatus = document.getElementById('db-status');
+  const dbActiveHub = document.getElementById('db-active-hub');
+  const dbFlowVal = document.getElementById('db-flow-val');
+
+  if (svg) {
+    // 1. Mouse Follower Effect
+    svg.addEventListener('mousemove', (e) => {
+      if (!follower) return;
+      const rect = svg.getBoundingClientRect();
+      // Translate mouse client coordinates to SVG viewBox space (560x360)
+      const x = ((e.clientX - rect.left) / rect.width) * 560;
+      const y = ((e.clientY - rect.top) / rect.height) * 360;
+      
+      follower.setAttribute('cx', x.toString());
+      follower.setAttribute('cy', y.toString());
+      follower.style.opacity = '1';
+    }, { passive: true });
+
+    svg.addEventListener('mouseleave', () => {
+      if (follower) {
+        follower.style.opacity = '0';
+      }
+    });
+
+    // 2. Hub Hover States and Synced table row highlights
+    const nodeGroups = svg.querySelectorAll('.node-group');
+    const snapshotRows = document.querySelectorAll('.snap-row');
+
+    nodeGroups.forEach((group) => {
+      const gEl = group as SVGGElement;
+      const hub = gEl.dataset.hub;
+      if (!hub) return;
+
+      group.addEventListener('mouseenter', () => {
+        // Add active state to SVG
+        svg.classList.add('has-active-hub');
+        gEl.classList.add('active');
+
+        // Highlight paths
+        const connections = svg.querySelectorAll('.conn, .pulse');
+        connections.forEach((conn) => {
+          const hubs = conn.getAttribute('data-hubs') || '';
+          if (hubs.includes(hub)) {
+            conn.classList.add('active-path');
+          } else {
+            conn.classList.remove('active-path');
+          }
+        });
+
+        // Highlight particles
+        const particles = svg.querySelectorAll('.particle');
+        particles.forEach((p) => {
+          const pPath = p.getAttribute('data-path') || '';
+          const isActive = (hub === 'london' && (pPath === 'lm' || pPath === 'lw')) ||
+                           (hub === 'munich' && (pPath === 'lm' || pPath === 'mw')) ||
+                           (hub === 'warsaw' && (pPath === 'mw' || pPath === 'lw'));
+          if (isActive) {
+            p.classList.add('active-particle');
+          } else {
+            p.classList.remove('active-particle');
+          }
+        });
+
+        // Update Central Dashboard Screen
+        const data = HUB_DATA[hub as keyof typeof HUB_DATA] || HUB_DATA.default;
+        if (dbStatus) {
+          dbStatus.textContent = data.status;
+          dbStatus.style.fill = data.statusColor;
+        }
+        if (dbActiveHub) dbActiveHub.textContent = data.hub;
+        if (dbFlowVal) dbFlowVal.textContent = data.flow;
+
+        // Highlight matching Snapshot Rows
+        snapshotRows.forEach((row) => {
+          const rowHubs = row.getAttribute('data-hubs') || '';
+          if (rowHubs.includes(hub)) {
+            row.classList.add('highlighted');
+            row.classList.remove('dimmed');
+          } else {
+            row.classList.add('dimmed');
+            row.classList.remove('highlighted');
+          }
+        });
+      });
+
+      group.addEventListener('mouseleave', () => {
+        // Reset SVG classes
+        svg.classList.remove('has-active-hub');
+        gEl.classList.remove('active');
+
+        // Reset paths & particles
+        const connections = svg.querySelectorAll('.conn, .pulse');
+        connections.forEach((conn) => conn.classList.remove('active-path'));
+
+        const particles = svg.querySelectorAll('.particle');
+        particles.forEach((p) => p.classList.remove('active-particle'));
+
+        // Reset Central Dashboard
+        if (dbStatus) {
+          dbStatus.textContent = HUB_DATA.default.status;
+          dbStatus.style.fill = HUB_DATA.default.statusColor;
+        }
+        if (dbActiveHub) dbActiveHub.textContent = HUB_DATA.default.hub;
+        if (dbFlowVal) dbFlowVal.textContent = HUB_DATA.default.flow;
+
+        // Reset Snapshot Rows
+        snapshotRows.forEach((row) => {
+          row.classList.remove('highlighted', 'dimmed');
+        });
+      });
+    });
+  }
+</script>

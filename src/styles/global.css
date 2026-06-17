@@ -155,7 +155,13 @@ header.nav.menu-open .nav-toggle .bar:nth-child(3){transform:translateY(-7px) ro
 .snap-head span{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;
   text-transform:uppercase;color:#8FA09E}
 .snap-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:baseline;
-  padding:7px 0;border-top:1px solid rgba(255,255,255,.07);font-family:var(--font-mono);font-size:.82rem}
+  padding:7px 8px;margin-inline:-8px;border-radius:6px;border-top:1px solid rgba(255,255,255,.07);
+  font-family:var(--font-mono);font-size:.82rem;transition:background .3s,border-color .3s,transform .3s,opacity .3s}
+.snap-row:first-of-type{border-top-color:transparent}
+.snap-row.highlighted{background:rgba(219,79,39,.12);border-top-color:transparent;transform:translateX(4px)}
+.snap-row.highlighted+.snap-row{border-top-color:transparent}
+.snap-row.highlighted .name{color:#fff}
+.snap-row.dimmed{opacity:.35}
 .snap-row .name{color:#D6DEDC;letter-spacing:.02em}
 .snap-row .val{color:#fff;text-align:right;min-width:64px}
 .snap-row .delta{text-align:right;min-width:54px}

@@ -8,10 +8,10 @@ interface Props {
 const { content } = Astro.props;
 
 const ROWS = [
-  { base: 34.2, prec: 2, delta: "▲ 0.6%", deltaClass: "up", d: "0.6" },
-  { base: 82.5, prec: 2, delta: "▼ 0.4%", deltaClass: "down", d: "0.4" },
-  { base: 71.8, prec: 2, delta: "▲ 1.2%", deltaClass: "up", d: "1.2" },
-  { base: 79.4, prec: 2, delta: "▲ 0.3%", deltaClass: "up", d: "0.3" },
+  { base: 34.2, prec: 2, delta: "▲ 0.6%", deltaClass: "up", d: "0.6", hubs: "london,warsaw" },
+  { base: 82.5, prec: 2, delta: "▼ 0.4%", deltaClass: "down", d: "0.4", hubs: "munich" },
+  { base: 71.8, prec: 2, delta: "▲ 1.2%", deltaClass: "up", d: "1.2", hubs: "warsaw" },
+  { base: 79.4, prec: 2, delta: "▲ 0.3%", deltaClass: "up", d: "0.3", hubs: "london" },
 ];
 ---
 
@@ -21,7 +21,7 @@ const ROWS = [
   </div>
   {
     ROWS.map((r, i) => (
-      <div class="snap-row">
+      <div class="snap-row" data-hubs={r.hubs}>
         <span class="name">{content.rows[i].name}</span>
         <span class="val" data-base={r.base} data-prec={r.prec}>
           {r.base.toFixed(r.prec)}
