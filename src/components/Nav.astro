@@ -40,9 +40,85 @@ const t = content.nav;
           ))
         }
       </nav>
-      <a href="#contact" class="btn btn-primary">
+      <a href="#contact" class="btn btn-primary nav-cta">
         {t.cta} <span class="arrow" aria-hidden="true">→</span>
       </a>
+      <button
+        type="button"
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle menu"
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu" hidden>
+    <nav class="mobile-links" aria-label="Mobile primary">
+      <a href="#trading">{t.trading}</a>
+      <a href="#trading">{t.supply}</a>
+      <a href="#trading">{t.services}</a>
+      <a href="#group">{t.group}</a>
+      <a href="#news">{t.news}</a>
+    </nav>
+    <div class="mobile-foot">
+      <nav class="mobile-lang" aria-label={content.langSwitcher.aria}>
+        {
+          LANGS.map((l, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">·</span>}
+              {l === lang ? (
+                <b>{LANG_LABEL[l]}</b>
+              ) : (
+                <a href={LANG_HREF[l]} hreflang={l} lang={l}>
+                  {LANG_LABEL[l]}
+                </a>
+              )}
+            </>
+          ))
+        }
+      </nav>
+      <a href="#contact" class="btn btn-primary mobile-cta">
+        {t.cta} <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+</div>
+
+<script>
+  const toggle = document.getElementById("navToggle");
+  const menu = document.getElementById("mobileMenu");
+  const header = document.getElementById("nav");
+  if (toggle && menu && header) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      header.classList.toggle("menu-open", open);
+      if (open) {
+        menu.hidden = false;
+        document.body.style.overflow = "hidden";
+      } else {
+        menu.hidden = true;
+        document.body.style.overflow = "";
+      }
+    };
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      setOpen(!open);
+    });
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => setOpen(false));
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+    const mql = window.matchMedia("(min-width: 881px)");
+    mql.addEventListener("change", (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>
