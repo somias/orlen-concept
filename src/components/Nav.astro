@@ -1,6 +1,9 @@
 ---
 import type { Content, Lang } from "../i18n";
 import { LANGS, LANG_HREF, LANG_LABEL } from "../i18n";
+import gbFlag from "flag-icons/flags/4x3/gb.svg";
+import deFlag from "flag-icons/flags/4x3/de.svg";
+import plFlag from "flag-icons/flags/4x3/pl.svg";
 
 interface Props {
   content: Content;
@@ -9,6 +12,14 @@ interface Props {
 
 const { content, lang } = Astro.props;
 const t = content.nav;
+
+const flagSrc = (m: unknown): string =>
+  typeof m === "string" ? m : (m as { src: string }).src;
+const FLAG_SRC: Record<Lang, string> = {
+  en: flagSrc(gbFlag),
+  de: flagSrc(deFlag),
+  pl: flagSrc(plFlag),
+};
 ---
 
 <header class="nav" id="nav">
@@ -26,18 +37,19 @@ const t = content.nav;
     <div class="nav-right">
       <nav class="lang" aria-label={content.langSwitcher.aria}>
         {
-          LANGS.map((l, i) => (
-            <>
-              {i > 0 && <span aria-hidden="true">·</span>}
-              {l === lang ? (
-                <b>{LANG_LABEL[l]}</b>
-              ) : (
-                <a href={LANG_HREF[l]} hreflang={l} lang={l}>
-                  {LANG_LABEL[l]}
-                </a>
-              )}
-            </>
-          ))
+          LANGS.map((l) =>
+            l === lang ? (
+              <b class="lang-item is-active" aria-current="true">
+                <img class="flag" src={FLAG_SRC[l]} alt="" />
+                {LANG_LABEL[l]}
+              </b>
+            ) : (
+              <a class="lang-item" href={LANG_HREF[l]} hreflang={l} lang={l}>
+                <img class="flag" src={FLAG_SRC[l]} alt="" />
+                {LANG_LABEL[l]}
+              </a>
+            )
+          )
         }
       </nav>
       <a href="#contact" class="btn btn-primary nav-cta">
@@ -70,18 +82,19 @@ const t = content.nav;
     <div class="mobile-foot">
       <nav class="mobile-lang" aria-label={content.langSwitcher.aria}>
         {
-          LANGS.map((l, i) => (
-            <>
-              {i > 0 && <span aria-hidden="true">·</span>}
-              {l === lang ? (
-                <b>{LANG_LABEL[l]}</b>
-              ) : (
-                <a href={LANG_HREF[l]} hreflang={l} lang={l}>
-                  {LANG_LABEL[l]}
-                </a>
-              )}
-            </>
-          ))
+          LANGS.map((l) =>
+            l === lang ? (
+              <b class="lang-item is-active" aria-current="true">
+                <img class="flag" src={FLAG_SRC[l]} alt="" />
+                {LANG_LABEL[l]}
+              </b>
+            ) : (
+              <a class="lang-item" href={LANG_HREF[l]} hreflang={l} lang={l}>
+                <img class="flag" src={FLAG_SRC[l]} alt="" />
+                {LANG_LABEL[l]}
+              </a>
+            )
+          )
         }
       </nav>
       <a href="#contact" class="btn btn-primary mobile-cta">
